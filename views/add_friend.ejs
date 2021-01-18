@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Add Friend</title>
+    </head>
+    <body>
+        <h1>친구추가 입니다.</h1>
+        <h3>친구 요청 보내기</h3>
+        <form method="post" action="/api/userFriends/request">
+            <table>
+                <tr>
+                    <td><label>친구 ID: </label></td>
+                    <td><input type="text" name="friend_id"/></td>
+                </tr>
+            </table>
+            <button id="addFriendBtn" type="submit">친구추가</button>
+        </form>
+        <h3>보낸 친구 요청</h3>
+        <table>
+            <% for (var i = 0; i < sentFriendRequestListSize; i++) {%>
+                <tr>
+                    <form method="post" action="/api/userFriends/request/cancle">
+                        <td><label> <%= i + 1 %> </label> </td>
+                        <td><label name="friend_id"> <%= sentFriendRequestList[i].friend_id %> </label></td>
+                        <td>
+                            <input type="hidden" name="friend_id" value="<%= sentFriendRequestList[i].friend_id %>" >
+                            <input type="hidden" name="result" value="cancle" >
+                            <button type="submit">요청 취소</button>
+                        </td>
+                    </form>
+                </tr>
+            <% } %>
+        </table>
+        <h3>친구 요청 받기</h3>
+        <table>
+            <% for (var i = 0; i < receivedFriendRequestListSize; i++) {%>
+                <tr>
+                        <td><label> <%= i + 1 %> </label> </td>
+                        <td><label name="friend_id"> <%= receivedFriendRequestList[i].user_id %> </label></td>
+                        <td>
+                            <form method="post" action="/api/userFriends/response/accept">
+                                <input type="hidden" name="friend_id" value="<%= receivedFriendRequestList[i].user_id %>" >
+                                <button type="submit">요청 수락</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form method="post" action="/api/userFriends/response/reject">
+                                <input type="hidden" name="friend_id" value="<%= receivedFriendRequestList[i].user_id %>" >
+                                <button type="submit">요청 거절 </button>
+                            </form>
+                        </td>
+                    </form>
+                </tr>
+            <% } %>
+        </table>
+    </body>
+</html>

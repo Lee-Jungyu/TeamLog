@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Friend List</title>
+    </head>
+    <body>
+        <h1>친구 목록 입니다.</h1>
+        <table>
+            <% for (var i = 0; i < friendListSize; i++) {%>
+                <tr>
+                    <td><label> <%= i + 1 %> </label> </td>
+                    <td><label> <%= friendList[i].friend_id %> </label></td>
+                    <td>
+                        <form method="post" action="/api/userFriends/remove">
+                            <input type="hidden" name="friend_id" value="<%= friendList[i].friend_id %>" >
+                            <button type="submit">친구 삭제</button>
+                        </form>
+                    </td>
+                </tr>
+            <% } %>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Home</title>
+        <script>
+
+        </script>
+    </head>
+    <body>
+        <h1>홈 입니다.</h1>
+        <% if(name) { %>
+            <span class="name"><%= name %>님 반갑습니다</span>
+            <a href="/logout">로그아웃</a>
+            <a href="/add_friend">친구추가</a>
+            <a href="/friend_list">친구목록</a>
+        <% } else { %>
+            <a href="/login">로그인</a>
+            <a href="/register">회원가입</a>
+        <% }%>
+    </body>
+</html>

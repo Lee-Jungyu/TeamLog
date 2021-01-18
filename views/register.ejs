@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Register</title>
+    </head>
+    <body>
+        <h1>회원가입 입니다.</h1>
+        <form method="post" action="/api/users/regist">
+            <table>
+                <tr>
+                    <td><label>ID: </label></td>
+                    <td><input type="text" name="id"/></td>
+                </tr>
+                <tr>
+                    <td><label>이름: </label></td>
+                    <td><input type="text" name="name"/></td>
+                </tr>
+                <tr>
+                    <td><label>비밀번호: </label></td>
+                    <td><input type="password" name="password"/></td>
+                </tr>
+                <tr>
+                    <td><label>비밀번호 확인: </label></td>
+                    <td><input type="password" name="password_check"/></td>
+                </tr>
+            </table>
+            
+            <button id="registBtn" type="submit">회원가입</button>
+        </form>
+        
+    </body>
+</html>
