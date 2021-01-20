@@ -8,11 +8,17 @@
     </head>
     <body>
         <h1>홈 입니다.</h1>
-        <% if(name) { %>
-            <span class="name"><%= name %>님 반갑습니다</span>
+        <% if(user) { %>
+            <span class="name"><%= user.name %>님 반갑습니다</span>
             <a href="/logout">로그아웃</a>
-            <a href="/add_friend">친구추가</a>
-            <a href="/friend_list">친구목록</a>
+            <div>
+                <a href="/add_friend">친구 추가</a>
+                <a href="/friend_list">친구 목록</a>
+            </div>
+            <div>
+                <a href="/add_schedule">일정 추가</a>
+                <a href="/schedule_list">일정 목록</a>
+            </div>
         <% } else { %>
             <a href="/login">로그인</a>
             <a href="/register">회원가입</a>

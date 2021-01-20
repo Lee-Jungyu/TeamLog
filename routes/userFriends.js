@@ -63,10 +63,7 @@ module.exports = function(app, User, UserFriend) {
             userFriend.save(function(err){
                 if(err) return res.status(500).json({error: err});
 
-                var newUserFriend = new UserFriend();
-                newUserFriend.user_id = _user_id;
-                newUserFriend.friend_id = _friend_id;
-                newUserFriend.accepted = true;
+                userFriend.accepted = true;
 
                 newUserFriend.save(function(err) {
                     if(err) return res.status(500).json({error: err});
@@ -87,6 +84,7 @@ module.exports = function(app, User, UserFriend) {
         });
     })
 
+    // Remove Friend
     app.post('/api/userFriends/remove', function(req, res) {
         var _friend_id = req.body.friend_id;
         var _user_id = req.session.user.id;

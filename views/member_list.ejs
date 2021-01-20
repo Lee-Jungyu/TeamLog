@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Friend List</title>
+    </head>
+    <body>
+        <h1>멤버 목록 입니다.</h1>
+        <% if(is_super_user) { %>
+            <h3>멤버 초대</h3>
+            <form method="post" action="/api/scheduleUsers/invite/request">
+                <input type="hidden" name="schedule_id" value="<%= schedule.id %>">
+                <table>
+                    <td><label>초대할 사람의 ID: </label></td>
+                    <td><input type="text" name="invited_member_id"></td>
+                    <td><button type="submit">멤버 초대</button></td>
+                </table>
+            </form>
+            <h3>초대한 멤버 목록</h3>
+            <table>
+                <tr>
+                    <th>순서</th>
+                    <th>이름</th>
+                    <th>관리</th>
+                </tr>
+                <% for (var i = 0; i < invitedMemberListSize; i++) { %>
+                    <tr>
+                        <td><label><%= i + 1 %></label></td>
+                        <td><label><%= invitedMemberList[i].member_list[0].name %></label></td>
+                        <td>
+                            <form method="post" action="/api/scheduleUsers/invite/cancle">
+                                <input type="hidden" name="schedule_id" value="<%= schedule.id %>">
+                                <input type="hidden" name="invite_cancle_user_id" value="<%= invitedMemberList[i].member_list[0].id %>">
+                                <button type="submit">초대 취소</button>
+                            </form>
+                        </td>
+                    </tr>
+                    
+                <% } %>
+            </table>
+        <% } %>
+        <h3>멤버 목록</h3>
+        <table>
+            <tr>
+                <th>순서</th>
+                <th>이름</th>
+                <% if(is_super_user) { %>
+                    <th> 관리 </th>
+                <% } %>
+            </tr>
+            <% for (var i = 0; i < memberListSize; i++) {%>
+                <tr>
+                    <td><label> <%= i + 1 %> </label> </td>
+                    <td><label> <%= memberList[i].member_list[0].name %> </label></td>
+                    <% if(is_super_user) { %>
+                        <td>
+                            <form method="post" action="/api/scheduleUsers/ban">
+                                <input type="hidden" name="schedule_id" value="<%= schedule.id %>">
+                                <input type="hidden" name="ban_user_id" value="<%= memberList[i].member_list[0].id %>" >
+                                <button type="submit">멤버 삭제</button>
+                            </form>
+                        </td>
+                    <% } %>
+                </tr>
+            <% } %>
+        </table>
+    </body>
+</html>

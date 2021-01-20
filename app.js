@@ -22,11 +22,15 @@ app.use(bodyParser.json());
 // [Define Model]
 var User = require('./models/user');
 var UserFriend = require('./models/userFriend');
+var Schedule = require('./models/schedule');
+var ScheduleUser = require('./models/scheduleUser');
 
 // [Configure Router]
-const indexRouter = require('./routes/index')(app, User, UserFriend);
+const indexRouter = require('./routes/index')(app, User, UserFriend, Schedule,ScheduleUser);
 const userRouter = require('./routes/users')(app, User);
 const userFriendRouter = require('./routes/userFriends')(app, User, UserFriend);
+const scheduleRouter = require('./routes/schedules')(app, User, Schedule, ScheduleUser);
+const shceduleUserRouter = require('./routes/scheduleUsers')(app, ScheduleUser, User, Schedule);
 
 // [Configure View Path]
 app.set('views', __dirname + '/views');

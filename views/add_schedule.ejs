@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Add Schedule</title>
+    </head>
+    <body>
+        <h1>일정 추가 입니다.</h1>
+        <form method="post" action="/api/schedules/create">
+            <table>
+                <tr>
+                    <td><label>일정 이름: </label></td>
+                    <td><input type="text" name="schedule_name"/></td>
+                </tr>
+            </table>
+            <button type="submit">일정 추가</button>
+        </form>
+        
+    </body>
+</html>

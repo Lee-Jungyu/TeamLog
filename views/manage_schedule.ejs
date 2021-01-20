@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Manage Schedule</title>
+        <script>
+
+        </script>
+    </head>
+    <body>
+        <h1>일정 관리 입니다.</h1>
+        <form method="get" action="/member_list">
+            <input type="hidden" name="schedule_id" value="<%= schedule_id %>">
+            <button type="submit">멤버 목록</button>
+        </form>
+        <br>
+        <form method="post" action="/api/schedules/remove">
+            <input type="hidden" name="schedule_id" value="<%= schedule_id %>">
+            <button type="submit">일정 삭제</button>
+        </form>
+    </body>
+</html>
