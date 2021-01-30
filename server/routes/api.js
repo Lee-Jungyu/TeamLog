@@ -77,7 +77,7 @@ router.get('/friends', (req, res) => {
 
 
             console.log('친구조회: 완료')
-            res.json({ friends, fromMe, toMe })
+            res.json({ success: true, friends, fromMe, toMe })
         })
     })
 })
