@@ -13,6 +13,7 @@ app.use(bodyParser.json());
 var User = require('./models/User');
 
 // [Configure Router]
+const mainRouter = require('./routes/index')(app, User);
 const userRouter = require('./routes/users')(app, User);
 
 var db = mongoose.connection;

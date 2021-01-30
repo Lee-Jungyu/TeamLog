@@ -19,47 +19,103 @@ class SignupScreen extends Component {
         id: "",
         name: "",
         password: "",
-        password_check: ""
+        password_check: "",
+        id_check: false
     }
 
     changeText = (type, changedText) => {
-        if(type === 'id') this.setState({id: changedText});
+        if(type === 'id') {
+            this.setState({id: changedText});
+            this.setState({id_check: false});
+        }
         if(type === 'name') this.setState({name: changedText});
         if(type === 'password') this.setState({password: changedText});
         if(type === 'password_check') this.setState({password_check: changedText});
     }
 
-    signUp = async () => {
-        
-        if(this.state.password !== this.state.password_check) {
-            alert('Check your password');
+    idCheck = async () => {
+        if(this.state.id.length === 0) {
+            alert('Enter your ID');
             return;
         }
 
-        let userData = new FormData();
-        userData.append('id', this.state.id);
-        userData.append('name', this.state.name);
-        userData.append('password', this.state.password);
-        
-        console.log(userData);
-
-        fetch('http://192.168.0.22:3000/api/users/signup', {
+        fetch('http://192.168.0.22:3000/api/users/checkId', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                id: this.state.id,
-                name: this.state.name,
+                user_id: this.state.id,
+            })
+        })
+        .then((response) => response.json())
+        .then((responseJson) => {
+            if(responseJson.status === 'success') {
+                this.setState({id_check: true});
+                alert('Possible ID');
+            }
+            else if(responseJson.status === 'existed') {
+                alert('Already existed ID');
+                return;
+            }
+            else {
+                alert('Caused internal error');
+            }
+        })
+        .catch((e) => {
+            console.log(e);
+            alert('Caused internal error');
+            return;
+        });
+    }
+
+    signUp = async () => {
+        if(this.state.id_check === false) {
+            alert('Check your ID');
+            return;
+        }
+        if(this.state.name.length === 0) {
+            alert('Enter your name');
+            return;
+        }
+        if(this.state.password.length === 0) {
+            alert('Enter your password');
+            return;
+        }
+        if(this.state.password !== this.state.password_check) {
+            alert('Check your password');
+            return;
+        }
+
+        fetch('http://192.168.0.22:3000/api/users/signUp', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                user_id: this.state.id,
+                user_name: this.state.name,
                 password: this.state.password
             })
         })
-        .then((response) => response.text())
+        .then((response) => response.json())
         .then((responseJson) => {
-            let json = JSON.stringify(responseJson)
-            console.log(json);
+            if(responseJson.status === 'success') {
+                alert('Success sign up');
+                this.props.navigation.navigate('Home');
+                return;
+            }
+            alert('Caused internal error');
+            return;
         })
+        .catch((e) => {
+            console.log(e);
+            alert('Caused internal error');
+            return;
+        })
+
     }
 
     render()
@@ -73,6 +129,11 @@ class SignupScreen extends Component {
                     <TextInput
                         style={{flex: 8, backgroundColor: 'white'}}
                         onChangeText={(text) => this.changeText('id', text)} />
+                    <TouchableOpacity 
+                        onPress={() => this.idCheck()}
+                    >
+                        <Text style={{ backgroundColor: 'skyblue'}}>중복 확인</Text>
+                    </TouchableOpacity>
                 </View>
                 <View style={{flexDirection: 'row', paddingTop: 10}}>
                     <Text style={{flex: 2, justifyContent: 'center'}}>이름</Text>

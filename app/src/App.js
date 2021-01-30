@@ -20,9 +20,10 @@ import {
 //import 'react-native-gesture-handler'
 import MainStackNavigator from './components/navigation/MainStackNavigator';
 import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import {createStackNavigator} from '@react-navigation/stack';;
 
 const Stack = createStackNavigator();
+
 class App extends Component {
 	render() {
 		console.log("Checking App");

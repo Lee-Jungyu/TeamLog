@@ -56,9 +56,43 @@ module.exports = function(app, User) {
         });
     })
 
-    app.post('/api/users/signup', async function(req, res) {
-        console.log(req.body);
-        res.status(200).json({status: 'success'});
+    app.post('/api/users/checkId', async function(req, res) {
+        try {
+            let _id = req.body.user_id;
+        
+            const user = await User.findOne({id: _id});
+    
+            if(user) {
+                return res.status(403).json({status: 'existed'});
+            }
+
+            res.status(200).json({status: 'success'});
+        } catch (e) {
+            return res.status(500).json({status: e});
+        }
+        
+    })
+
+    app.post('/api/users/signUp', async function(req, res) {
+        try {
+            let _id = req.body.user_id;
+            let _name = req.body.user_name;
+            let _password = req.body.password;
+
+            console.log(req.body);
+            newUser = new User();
+            newUser.id = _id;
+            newUser.name = _name;
+            newUser.password = _password;
+
+            const savingNewUser = await newUser.save();
+
+            return res.status(200).json({status: 'success'});
+
+        } catch (e) {
+            console.log(e);
+            return res.status(500).json({status: e});
+        }
     })
 
     
