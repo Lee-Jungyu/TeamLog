@@ -22,7 +22,7 @@ create table user(
 ```
 
 root-context 계정정보 변경
-
+```
 <property name="username" value="your_name" />
-
 <property name="password" value="your_password" />
+```
